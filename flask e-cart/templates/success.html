@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Thanks for your order!</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+  <section>
+    <center>
+      <img src="/static/successpurchasee.svg" alt="Payment Success">
+      <div class="mail">
+        <p>
+          We appreciate your business! If you have any questions, please email
+          <a href="mailto:orders@example.com">orders@example.com</a>.
+        </p>
+
+      </div>
+      <div class="timer">Redirecting in <span id="timer"></span> seconds...</div>
+    </center>
+
+
+  </section>
+
+  <!-- script for timer-->
+  <script>
+
+    function startTimer(duration, display) {
+      var timer = duration, minutes, seconds;
+      setInterval(function () {
+        minutes = parseInt(timer / 60, 10);
+        seconds = parseInt(timer % 60, 10);
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.textContent = minutes + ":" + seconds;
+
+        if (--timer < 0) {
+          window.location.href = "/orders";
+        }
+      }, 1000);
+    }
+
+    window.onload = function () {
+      var fiveMinutes = 5,
+        display = document.querySelector('#timer');
+      startTimer(fiveMinutes, display);
+    };
+  </script>
+</body>
+
+</html>

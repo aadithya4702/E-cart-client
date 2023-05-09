@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment</title>
+    <link rel="shortcut icon" href="/static/logo.png" type="image/x-icon">
+    <script src="https://js.stripe.com/v3/"></script>
+</head>
+
+<body>
+    <form action="/pay" method="post">
+        <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+            data-key="sk_test_51MecXQSDtBJBmoILDf81I4a1WOUDvL4uZARTjE5HDBoejn0mhWr00VBSgDpVfwqAVqXRUQHzTDWlWWPtI6oiAADo00nYf3isY7"
+            data-amount="500" data-name="Demo Site" data-description="Widget"
+            data-image="https://stripe.com/img/documentation/checkout/marketplace.png" data-currency="usd"
+            data-email="nothing@gmail.com">
+            </script>
+        <input type="hidden" name="stripeToken" value="{{ token }}" />
+    </form>
+
+
+
+
+
+</body>
+
+</html>

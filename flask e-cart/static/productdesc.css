@@ -1,0 +1,264 @@
+@import url("https://fonts.googleapis.com/css2?family=Lobster&family=Pacifico&family=Poppins&family=Roboto+Mono&family=Sono&display=swap");
+
+/*
+font-family: 'Lobster', cursive;
+font-family: 'Pacifico', cursive;
+font-family: 'Poppins', sans-serif;
+font-family: 'Roboto Mono', monospace;
+font-family: 'Sono', sans-serif; */
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+a {
+  text-decoration: none;
+}
+ul {
+  list-style: none;
+}
+body {
+  width: 100vw;
+
+  overflow-x: hidden;
+}
+body::-webkit-scrollbar {
+  display: none;
+}
+.img::-webkit-scrollbar {
+  display: none;
+}
+.topdesc {
+  height: fit-content;
+}
+.top {
+  margin: 20px;
+  height: fit-content;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+    rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+    rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+  background-color: white;
+  border-radius: 20px;
+}
+.message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+.carddesc {
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  border-radius: 20px;
+}
+.img {
+  position: relative;
+  width: 500px;
+  height: 500px;
+  overflow-x: hidden;
+  white-space: nowrap;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+}
+
+#imdesc {
+  width: 100%;
+  height: 100%;
+}
+.slide-img,
+.hidden {
+  display: none;
+}
+
+.active {
+  width: 100%;
+  height: 100%;
+  display: block;
+  animation: fadeAnimation 5ms;
+}
+
+.sliderbuttons {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px;
+}
+.leftb {
+  font-size: 30px;
+  color: goldenrod;
+  margin-right: 10px;
+}
+.rightb {
+  font-size: 30px;
+  color: goldenrod;
+  margin-left: 10px;
+}
+/* .dots {
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  height: 15px;
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.dot {
+  width: 20px;
+  height: 3px;
+  background-color: rgba(241, 241, 241, 0.2);
+  cursor: pointer;
+}
+
+.dot-active {
+  background-color: #fff;
+} */
+.contdesc {
+  padding: 20px;
+  width: fit-content;
+}
+.contdesc > h3,
+.contdesc > h2 {
+  font-family: "Roboto Mono", sans-serif;
+  font-size: 25px;
+}
+.contdesc > p {
+  font-family: "Sono", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-size: 20px;
+  color: grey;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+#price {
+  font-family: "Sono", serif;
+  font-size: 30px;
+  color: goldenrod;
+}
+#mrp {
+  font-family: "Sono", serif;
+  font-size: 20px;
+  color: crimson;
+  opacity: 1;
+}
+.descimg {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.descimgcon > h6 {
+  color: rgb(111, 119, 126);
+  opacity: 0.5;
+}
+
+.cartbut {
+  width: 100%;
+  height: fit-content;
+  align-items: center;
+  justify-content: space-evenly;
+  display: flex;
+
+  gap: 50px;
+  margin-right: 20px;
+  margin-top: 50px;
+}
+.cartbut > h3 {
+  font-family: "Roboto Mono", sans-serif;
+  font-size: 25px;
+}
+.qty {
+  display: flex;
+  font-family: "Roboto Mono", sans-serif;
+  font-size: 20px;
+  width: fit-content;
+  align-items: center;
+}
+.qty > input {
+  width: 70px;
+  height: 50px;
+}
+.addqty {
+  gap: 20px;
+}
+.but {
+  background-color: #ef233c;
+  padding: 10px;
+  border-radius: 20px;
+  border: 2px solid goldenrod;
+}
+.but-buy {
+  background-color: #243e69;
+  padding: 10px;
+  border-radius: 20px;
+  border: 2px solid grey;
+}
+.but > a,
+.but-buy > a {
+  text-decoration: none;
+}
+.but a h3,
+.but-buy > a h3 {
+  font-family: "Sono", system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+    sans-serif;
+  font-size: 20px;
+  color: white;
+}
+.but-buy > a h3 {
+  color: aliceblue;
+}
+.favicon {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 25px;
+  font-weight: bold;
+  background-color: aliceblue;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  border-radius: 50%;
+}
+#stock{
+  width: 30px;
+  height: 30px;
+}
+.favicon:hover {
+  color: #c2091f;
+}
+.fa-check {
+  position: absolute;
+  right: 50px;
+  font-size: 30px;
+  color: grey;
+  
+}
+.fa-share-alt {
+  position: absolute;
+  right: 50px;
+  font-size: 20px;
+  background-color: grey;
+  color: aliceblue;
+  padding: 8px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition-delay: 50ms;
+}
+.fa-share-alt:hover{
+  color: goldenrod;
+  background-color: rgb(46, 75, 46);
+  border-radius: 50%;
+
+}

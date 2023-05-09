@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+        integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/static/reset.css">
+    <link rel="shortcut icon" href="/static/logo.png" type="image/x-icon">
+    <title>Reset Password</title>
+</head>
+
+<body>
+    <div class="dialogotp">
+
+        <form action="/email-verification" method="post">
+            <h3>Enter The E-Mail :</h3>
+            <input type="email" name="mail" id="npi"> <input type="submit" value="Verify" id="np">
+
+        </form>
+
+        <a href="/login">
+            <h5 id="cross"><i class="fas fa-times"></i></h5>
+        </a>
+
+    </div>
+
+
+
+</body>
+
+</html>

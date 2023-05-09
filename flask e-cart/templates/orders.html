@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/orders.css">
+    <link rel="shortcut icon" href="/static/logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+        integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Document</title>
+</head>
+
+<body>
+    {% include 'nav.html' %}
+    <section class="ordcont">
+
+        <img src="/static/ORDERS PAGE.png"
+            alt="">
+        <h3>Order History</h3>
+        <div class="oh">
+
+            <div class="orderhis">
+                {% if orders %}
+                {% for item in orders %}
+                {% include 'ordercard.html' %}
+                {% endfor%}
+                {% else %}
+                <div class="noitem">
+                    <img src="/static/emptycart.svg" alt="">
+                    <h3>No Orders Yet&#128532;...</h3>
+                </div>
+                {% endif %}
+
+
+
+
+
+
+            </div>
+
+            <div class="orderhisright">
+                <img src="/static/truck.svg" alt="delivery logo">
+
+            </div>
+        </div>
+
+
+    </section>
+
+    {% include 'foot.html' %}
+
+
+    <!-- Your Flask template HTML code -->
+
+    <script>
+        // Get the link and pop-up box elements
+        var links = document.querySelectorAll('[data-id]');
+        var popups = document.querySelectorAll('.popup');
+
+        // Attach event listener to each link
+        links.forEach(function (link) {
+            link.addEventListener('click', function (event) {
+                event.preventDefault();
+                var itemId = this.getAttribute('data-id');
+                var popup = document.querySelector('#popup-' + itemId);
+                popup.style.display = 'block';
+                var url = '/item/' + itemId;
+                // Send an AJAX request to the Flask endpoint
+                fetch(url)
+                    .then(response => response.json())
+                    .then(data => {
+                        // Build the table HTML string
+                        var tableHtml = '<table><thead><tr><th>ID</th><th>Name</th><th>Price</th><th>Quantity</th></tr></thead><tbody>';
+                        for (var i = 0; i < data.length; i++) {
+                            var products = data[i];
+                            tableHtml += '<tr><td>' + products.id + '</td><td>' + products.name + '</td><td>' + products.price + '</td><td>' + products.quantity + '</td></tr>';
+                        }
+                        tableHtml += '</tbody></table>';
+                        console.log(tableHtml);
+
+                        // Display the table in a div
+                        var tableContainer = popup.querySelector('#table-container');
+                        tableContainer.innerHTML = tableHtml;
+                    })
+                    .catch(error => console.error(error));
+            });
+        });
+
+        // Attach event listener to each close button
+        var closeButtons = document.querySelectorAll('.close');
+        closeButtons.forEach(function (closeButton) {
+            closeButton.addEventListener('click', function () {
+                var popup = this.parentElement.parentElement;
+                popup.style.display = 'none';
+            });
+        });
+
+        // Hide pop-up boxes when clicking outside of them
+        window.addEventListener('click', function (event) {
+            popups.forEach(function (popup) {
+                if (event.target == popup) {
+                    popup.style.display = 'none';
+                }
+            });
+        });
+
+    </script>
+
+
+
+
+</body>
+
+</html>

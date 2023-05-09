@@ -1,0 +1,102 @@
+@import url("https://fonts.googleapis.com/css2?family=Lobster&family=Pacifico&family=Poppins&family=Roboto+Mono&family=Sono&display=swap");
+
+/*
+font-family: 'Lobster', cursive;
+font-family: 'Pacifico', cursive;
+font-family: 'Poppins', sans-serif;
+font-family: 'Roboto Mono', monospace;
+font-family: 'Sono', sans-serif; */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+a {
+  text-decoration: none;
+  outline: none;
+}
+
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent; /* make scrollbar transparent */
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  background-color: aliceblue;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+input {
+  width: 250px;
+  height: 30px;
+  border: none;
+  outline: none;
+  padding: 5px;
+  background-color: transparent;
+  border-radius: 10px;
+  color: crimson;
+  letter-spacing: 1px;
+  font-family: "Roboto", sans-serif;
+  font-size: 20px;
+  padding: 5px;
+}
+.dialogotp {
+  position: relative;
+  display: flex;
+  border-radius: 10px;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background-color: grey;
+  flex-direction: column;
+  width: fit-content;
+}
+.dialogotp > h3,
+.dialogotp > form > h3,
+.dialogotp > .otp > h3 {
+  font-family: "Roboto Mono", sans-serif;
+  font-size: 20px;
+  color: #ffff;
+  margin-bottom: 10px;
+  padding: 5px;
+}
+
+#np,
+#ver {
+  background-color: #2b2d42;
+  margin: 10px;
+  width: fit-content;
+  padding: 5px;
+}
+#cross {
+  top: 10px;
+  right: 10px;
+  position: absolute;
+  font-size: 18px;
+  color: beige;
+}
+#npi {
+  background-color: #edf2f4;
+  width: 100%;
+}
+.otp-input {
+  border: 2px solid goldenrod;
+  background-color: #edf2f4;
+  width: 50px;
+  height: 50px;
+  margin-left: 5px;
+  font-family: "Sono", sans-serif;
+  padding: 10px;
+}
+.newpassword {
+  display: none;
+}
+.otp {
+    display: flex;
+    flex-direction: column;
+}

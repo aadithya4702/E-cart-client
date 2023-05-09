@@ -1,0 +1,219 @@
+@import url("https://fonts.googleapis.com/css2?family=Lobster&family=Pacifico&family=Poppins&family=Roboto+Mono&family=Sono&display=swap");
+
+/*
+font-family: 'Lobster', cursive;
+font-family: 'Pacifico', cursive;
+font-family: 'Poppins', sans-serif;
+font-family: 'Roboto Mono', monospace;
+font-family: 'Sono', sans-serif; */
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+a {
+  text-decoration: none;
+  color: black;
+}
+ul {
+  list-style: none;
+}
+body {
+  overflow-x: hidden;
+}
+body::-webkit-scrollbar {
+  display: none;
+}
+
+.carousel {
+  display: flex;
+  position: relative;
+  width: 100%;
+  height: fit-content;
+  overflow: hidden;
+  z-index: -1;
+  margin-bottom: -150px;
+}
+.im {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  /* -webkit-mask-image: linear-gradient(black, transparent);
+  mask-image: linear-gradient(black, transparent); */
+}
+
+.leftb {
+  position: absolute;
+  top: 250px;
+  left: 20px;
+  opacity: 0.5;
+  font-size: 60px;
+  border: none;
+  background-color: transparent;
+  color: goldenrod;
+}
+.rightb {
+  position: absolute;
+  top: 250px;
+  right: 20px;
+  opacity: 0.5;
+  font-size: 60px;
+  border: none;
+  background-color: transparent;
+  color: goldenrod;
+}
+.products-cat {
+  display: grid;
+  grid-auto-flow: column;
+  overflow-x: scroll;
+  height: auto;
+  margin: 20px 50px 20px 50px;
+  padding: 10px;
+}
+.card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Sono", sans-serif;
+  padding: 20px;
+  width: 200px;
+  height: 100%;
+  /* From https://css.glass */
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: aliceblue;
+
+  margin-left: 20px;
+}
+.card:hover {
+  color: #edf2f4;
+  background-color: goldenrod;
+  box-shadow: 0 0 50px goldenrod;
+}
+.products-cat::-webkit-scrollbar {
+  display: none;
+}
+.leftcatb {
+  font-size: 20px;
+  left: 0;
+  top: 100px;
+  position: sticky;
+  z-index: 1;
+  border: none;
+  background: transparent;
+}
+.rightcatb {
+  font-size: 20px;
+  position: sticky;
+  right: 0;
+  top: 100px;
+  z-index: 1;
+  border: none;
+  background: transparent;
+}
+/* body */
+.bodycatlog {
+  height: auto;
+  margin: 20px;
+}
+.logbut {
+  height: fit-content;
+  padding: 20px;
+  margin: 30px;
+  background-color: #c0c4c6;
+  border-radius: 20px;
+  font-family: "Roboto Mono", sans-serif;
+}
+.rgscroll::-webkit-scrollbar {
+  display: none;
+}
+
+.carddis {
+  display: flex;
+  width: 100%;
+  background-color: #c0c4c6;
+
+  border-radius: 10px;
+  margin-top: 20px;
+}
+.fixel {
+  background-color: rgb(13, 40, 91);
+  font-size: 20px;
+  font-family: "Poppins", sans-serif;
+  color: #edf2f4;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  border-radius: 10px;
+
+  min-width: 230px;
+  max-width: 230px;
+  flex-wrap: wrap;
+}
+.fixel > h3 {
+  text-align: center;
+}
+
+.rgscroll {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  overflow-x: scroll;
+  margin: 10px;
+  padding: 5px;
+}
+.cardlayout {
+  background-color: #edf2f4;
+  margin-left: 10px;
+  max-height: 300px;
+  max-width: 300px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: "Roboto Mono", sans-serif;
+  overflow: hidden;
+  position: relative;
+}
+
+.cardlayout > a > img {
+  min-width: 250px;
+  min-height: 200px;
+  margin-bottom: 5px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.cardlayout  > img {
+  min-width: 250px;
+  min-height: 200px;
+  margin-bottom: 5px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.cardlayout > h3 {
+  color: black;
+  font-size: 14px;
+}
+.cardlayout > span {
+  font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+    sans-serif;
+  font-size: 18px;
+  color: green;
+}
+
+.cardlayout i {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  color: rgb(205, 24, 24);
+}

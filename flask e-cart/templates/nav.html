@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous" />
+  <link rel="stylesheet" href="/static/nav.css" />
+
+
+</head>
+
+<body>
+  <header class="nav">
+    <div class="left">
+      <a href="/">
+        <div class="logo">
+          <img src="/static/e-cart.png" alt="" />
+          <h3 class="title">E-Cart</h3>
+        </div>
+      </a>
+
+
+      <div class="search">
+        <div class="cat">
+          <select name="catelog" id="cat">
+            <option value="All" default>All</option>
+            <option value="Electronics">Electronics</option>
+            <option value="Jewels">Jewels</option>
+            <option value="Bags">Bags</option>
+            <option value="Shoes">Shoes</option>
+            <option value="Grocery">Grocery</option>
+          </select>
+        </div>
+        <div class="searchbar">
+          <input type="search" id="search-input" name="search" class="sear" autocomplete="on" />
+          <button class="searicon"><i class="fas fa-search"></i></button>
+          <div id="search-results">
+
+          </div>
+        </div>
+
+      </div>
+
+
+
+
+
+
+    </div>
+    <div class="right">
+      <a href="/orders" class="ord"><i class="fa fa-scroll"></i>
+        <h3>Order</h3>
+      </a>
+      <a href="/cart" class="cart">
+        <div class="carnum"><i class="fas fa-shopping-cart"></i>
+          <h3>Cart</h3>
+      </a>
+
+      {% if cartvalue is not none%}
+      <h3 class="num">{{cartvalue}}</h3>
+
+      {% else %}
+      <h3 class="num">0</h3>
+      {% endif %}
+
+
+    </div>
+    <div class="name">
+      <center>
+        <h3>Hello,</h3>
+
+        {% if session.loggedin== true %}
+        <h3>{{uname}}</h3>
+        {% else %}
+        <h3>User&#128075;</h3>
+        {%endif%}
+
+      </center>
+    </div>
+
+
+    {% if session.loggedin== true %}
+    <a href="/logout"><button class="reglog">Logout</button></a>
+    {% else %}
+    <a href="/login"><button class="reglog">SignIn/SignUp</button></a>
+    {%endif%}
+    </div>
+  </header>
+
+  <!-- <script>
+    const searchInput = document.querySelector('#search-input');
+    const searchResults = document.querySelector('#search-results');
+
+    searchInput.addEventListener('input', () => {
+      const query = searchInput.value;
+      const category = document.querySelector('#cat').value;
+      if (query.trim().length === 0) {
+        searchResults.innerHTML = '';
+        return;
+      } else {
+        searchResults.style.display = 'block';
+      }
+      fetch(`/search?q=${query}&category=${category}`)
+        .then(response => response.json())
+        .then(data => {
+          console.log(data);
+          searchResults.innerHTML = '';
+          data.forEach(result => {
+            const resultLink = document.createElement('a');
+            if (!result.url) {
+              // resultLink.href = result.url.replace('https://www.amazon.com', 'http://localhost:5000').replace('https://',
+              //   '').replace(/\/dp\//, '/productdesc/');
+              resultLink.href = 'http://localhost:5000/productdesc/'+result.esin;
+            }
+            if (result.ptitle) {
+              const resultItem = document.createElement('div');
+              resultItem.classList.add('search-result-item');
+              const resultIcon = document.createElement('i');
+              resultIcon.classList.add('fas', 'fa-search');
+              resultItem.appendChild(resultIcon);
+              resultItem.appendChild(document.createTextNode(' ' + result.ptitle));
+              resultLink.appendChild(resultItem);
+              searchResults.appendChild(resultLink);
+            }
+          });
+        });
+    });
+  </script> -->
+
+
+  <script>
+    const searchInput = document.querySelector('#search-input');
+    const searchResults = document.querySelector('#search-results');
+
+    searchInput.addEventListener('input', () => {
+      const query = searchInput.value;
+      const category = document.querySelector('#cat').value;
+      if (query.trim().length === 0) {
+        searchResults.innerHTML = '';
+        return;
+      } else {
+        searchResults.style.display = 'block';
+      }
+      fetch(`/search?q=${query}&category=${category}`)
+        .then(response => response.json())
+        .then(data => {
+
+          searchResults.innerHTML = '';
+          data.forEach(result => {
+            const resultLink = document.createElement('a');
+            if (!result.url) {
+              resultLink.href = 'http://localhost:5000/productdesc/' + result.esin;
+            }
+            if (result.ptitle) {
+              const resultItem = document.createElement('div');
+              resultItem.classList.add('search-result-item');
+              const resultIcon = document.createElement('i');
+              resultIcon.classList.add('fas', 'fa-search');
+              resultItem.appendChild(resultIcon);
+              resultItem.appendChild(document.createTextNode(' ' + result.ptitle));
+              resultLink.appendChild(resultItem);
+              searchResults.appendChild(resultLink);
+            }
+          });
+        });
+    });
+
+    searchInput.addEventListener('blur', () => {
+      setTimeout(() => {
+        searchResults.style.display = 'none';
+      }, 200);
+    });
+
+    searchInput.addEventListener('focus', () => {
+      searchResults.style.display = 'block';
+      // Add code to show trending products here
+
+      fetch('/trending')
+        .then(response => response.json())
+        .then(data => {
+          console.log(data);
+          // Clear the search results container
+          searchResults.innerHTML = '';
+
+          // Display each trending product in the search results container
+          data.forEach(result => {
+            const resultLink = document.createElement('a');
+            if (!result.url) {
+              resultLink.href = 'http://localhost:5000/productdesc/' + result.esin;
+            }
+            if (result.ptitle) {
+              const resultItem = document.createElement('div');
+              resultItem.classList.add('search-result-item');
+              const resultIcon = document.createElement('i');
+              resultIcon.classList.add('fas', 'fa-poll');
+              resultItem.appendChild(resultIcon);
+              resultItem.appendChild(document.createTextNode(' ' + result.ptitle));
+              resultLink.appendChild(resultItem);
+              searchResults.appendChild(resultLink);
+            }
+          });
+        });
+    });
+  </script>
+
+
+
+</body>
+
+</html>

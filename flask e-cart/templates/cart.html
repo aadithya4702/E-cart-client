@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/cart.css">
+    <link rel="shortcut icon" href="/static/logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+        integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous" />
+
+    <link rel="stylesheet" href="/static/index.css">
+
+    <link rel="stylesheet" href="checkout.css" />
+    <script src="https://js.stripe.com/v3/"></script>
+
+
+
+    <title>Cart</title>
+</head>
+
+<body>
+
+    {% include 'nav.html' %}
+
+    <section class="cartprod">
+
+        <div class="leftprod">
+            <h3>Shopping cart</h3>
+            {% if username is not none %}
+            {% for item in products %}
+
+            {% include 'productincart.html' %}
+
+            {% endfor %}
+            {% else %}
+            <div class="noitem">
+                <img src="/static/emptycart.svg" alt="">
+                <h3>Empty cart...</h3>
+            </div>
+            {% endif %}
+            {% if cartval is none%}
+            <div class="noitem">
+                <img src="/static/emptycart.svg" alt="">
+                <h3>Cart is Empty...</h3>
+            </div>
+
+            <!-- favorites -->
+            {% if data %}
+            <div class="carddis">
+                <div class="fixel">
+                    <h3>Favorite Products</h3>
+                    <h3 style="display: flex;align-items: center;justify-content: center;width: 100%;"><i
+                            class="fas fa-heart"></i>
+                    </h3>
+                </div>
+                <div class="rgscroll">
+                    {%for item in data%}
+
+                    <div class="s">
+
+
+                        <div class="cardlayout">
+                            <a href="/remove-favorite/{{item[1]}}"><i class="fas fa-heart"></i></a>
+                            <a href="/productdesc/{{item[1]}}"><img src="{{item[4]}}" alt=""></a>
+
+                            <h3>{{item[3]}}</h3>
+                            <h3 style="color: grey;">{{item[2]}}</h3>
+                            <span>Ratings {{item[5]}}</span>
+                        </div>
+
+
+
+                    </div>
+                    {% endfor %}
+
+                </div>
+
+
+            </div>
+
+            {% endif %}
+
+
+
+            <!-- end of fav -->
+
+
+            {% endif %}
+
+
+        </div>
+
+
+
+        <div class="rightprod">
+
+            <P style="text-decoration: underline;">
+                Proceed to Pay
+            </P>
+
+            <table>
+                <tr class="totprod">
+                    <td>Total Products:</td>
+                    <td id="val">{{cartvalue}}</td>
+                </tr>
+                <tr class="totpri">
+                    <td>Total Price:</td>
+                    <td id="val">&#8377;{{totprice}}</td>
+                </tr>
+
+
+            </table>
+            <h2><img src="https://m.media-amazon.com/images/G/31/A2I-Convert/mobile/IconFarm/trust_icon_free_shipping_81px._CB630870460_.png"
+                    alt=""> Free Delivery</h2>
+            {% if cartval is none or username is none %}
+            <div class="paybut">
+                <form action="/create-checkout-session1" method="POST">
+                    <button type="submit" id="checkout-button" title="Add things to the cart" disabled>Pay Now</button>
+                </form>
+                <a href="/success" id="checkout-button-dis" title="cash on delivery">COD</a>
+            </div>
+            {% else %}
+            <div class="paybut">
+                <form action="/create-checkout-session1" method="POST">
+                    <button type="submit" id="checkout-button" title="Make Payment...">Pay Now</button>
+
+                </form>
+                <a href="/success" id="checkout-button" title="cash on delivery">COD</a>
+            </div>
+            {% endif %}
+
+
+
+
+
+            <p style="color: rgb(21, 70, 155);">Supported payment Gateways..</p>
+            <img src="https://lostbarncoffee.co.uk/trade/img/cms/stripe.png" alt="">
+        </div>
+
+
+
+
+
+    </section>
+    {% include 'foot.html' %}
+
+
+
+
+
+
+</body>
+
+</html>

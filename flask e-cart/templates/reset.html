@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+        integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/static/reset.css">
+    <link rel="shortcut icon" href="/static/logo.png" type="image/x-icon">
+    <title>Reset Password</title>
+</head>
+
+<body>
+    <div id="my-element" data-val="{{ val }}"></div>
+
+
+    <div class="dialogotp">
+
+        <div class="otp">
+            <h3>Enter Otp:</h3>
+            <div>
+                <input type="text" maxlength="1" class="otp-input" id="otp-input-1" autofocus>
+                <input type="text" maxlength="1" class="otp-input" id="otp-input-2">
+                <input type="text" maxlength="1" class="otp-input" id="otp-input-3">
+                <input type="text" maxlength="1" class="otp-input" id="otp-input-4">
+                <input type="text" maxlength="1" class="otp-input" id="otp-input-5">
+                <input type="text" maxlength="1" class="otp-input" id="otp-input-6">
+            </div>
+            <Center><input type="submit" value="Verify OTP" id="ver" onclick="verify()"></Center>
+        </div>
+        <form action="/reset" method="post" class="newpassword">
+            <h3>New Password:</h3>
+            <center><input type="password" name="newpass" id="npi"></center>
+            <h3>Confirm Password:</h3>
+            <center><input type="password" name="conpass" id="npi"></center>
+            <center><input type="submit" value="Update Password" id="np"></center>
+        </form>
+
+        <a href="/login">
+            <h5 id="cross"><i class="fas fa-times"></i></h5>
+        </a>
+
+    </div>
+
+    <script>
+        //otp
+
+        const otpInputs = document.querySelectorAll(".otp-input");
+
+        for (let i = 0; i < otpInputs.length; i++) {
+            otpInputs[i].addEventListener("input", function () {
+                if (this.value.length == 1) {
+                    if (i < otpInputs.length - 1) {
+                        otpInputs[i + 1].focus();
+                    } else {
+                        otpInputs[i].blur();
+                    }
+                }
+            });
+            otpInputs[i].addEventListener("keydown", function (event) {
+                if (event.key === "Backspace" && this.value.length == 0) {
+                    if (i > 0) {
+                        otpInputs[i - 1].focus();
+                    }
+                }
+            });
+
+        }
+
+
+        const element = document.getElementById('my-element');
+        const val = element.getAttribute('data-val');
+
+
+
+        function verify() {
+
+            var input1 = document.getElementById("otp-input-1").value.toString();
+
+            var input2 = document.getElementById("otp-input-2").value.toString();
+
+            var input3 = document.getElementById("otp-input-3").value.toString();
+            var input4 = document.getElementById("otp-input-4").value.toString();
+
+            var input5 = document.getElementById("otp-input-5").value.toString();
+
+            var input6 = document.getElementById("otp-input-6").value.toString();
+
+            var x = document.getElementsByClassName("newpassword");
+            var y = document.getElementsByClassName("otp");
+
+            var combinedInput = input1 + input2 + input3 + input4 + input5 + input6;
+
+
+
+            if (combinedInput == val) {
+                y[0].style.display = 'none';
+                x[0].style.display = 'block';
+
+
+            }
+            else {
+                y[0].style.display = 'flex';
+                x[0].style.display = 'none';
+            }
+        }
+
+    </script>
+
+</body>
+
+</html>

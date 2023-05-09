@@ -1,0 +1,120 @@
+<div class="whole">
+    <div class="color"></div>
+    <div class="lis">
+        <div class="orderno" id="disele">
+            <span>
+                Order Id:
+            </span>
+            <h3>#{{item[0]}}</h3>
+
+        </div>
+        <div class="orderpay" id="disele">
+            <span>
+                Payment Type:
+            </span>
+            <h3>{{item[3]}}</h3>
+
+        </div>
+        <div class="ordername" id="disele">
+            <span>
+                Order name:
+            </span>
+            <h3>{{item[2]}}</h3>
+
+        </div>
+        <div class="orderdate" id="disele">
+            <span>
+                Order Date:
+            </span>
+            <h3>{{item[1]}}</h3>
+
+        </div>
+        <div class="ordertot" id="disele">
+            <span>
+                Order total:
+            </span>
+            <h3>{{item[4]}}</h3>
+
+        </div>
+        <div class="orderstatus" id="disele">
+            <span>
+                Order Status:
+            </span>
+            <h3 id="statval">{{item[5]}}</h3>
+
+        </div>
+        <div class="more">
+            <button onclick="toggleDropdown('dropdown-{{item[0]}}')"><i class="fas fa-ellipsis-v"></i></button>
+            <div id="dropdown-{{item[0]}}" class="dropdown-content">
+                <a href="#" data-id="{{ item[0] }}">More Details</a>
+
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<div id="popup-{{item[0]}}" class="popup">
+    <div class="popup-content">
+        <span class="close">&times;</span>
+        <div id="table-container"></div>
+    </div>
+</div>
+
+<!--{% if orders %}
+ <script>
+    const orders = {{ orders | tojson }};
+    orders.forEach(order => {
+        const row = document.querySelector(".color");
+        console.log(order[5]);
+        if (order[5] !== "pending") {
+            row.style.backgroundColor = "green";
+        } else {
+            row.style.backgroundColor = "crimson";
+            alert("green");
+        }
+    });
+</script>
+{% endif %} -->
+
+
+<script>
+    function toggleDropdown(dropdownId) {
+        // close any open dropdowns
+        var dropdowns = document.querySelectorAll(".dropdown-content");
+        dropdowns.forEach(function (dropdown) {
+            if (dropdown.id !== dropdownId && dropdown.classList.contains("show")) {
+                dropdown.classList.remove("show");
+            }
+        });
+
+        // toggle the current dropdown
+        var dropdown = document.getElementById(dropdownId);
+        dropdown.classList.toggle("show");
+    }
+
+
+
+
+</script>
+
+<script>
+    document.querySelectorAll('.dropdown-option').forEach(option => {
+        option.addEventListener('click', handleOptionClick);
+    });
+    function handleOptionClick(event) {
+        event.preventDefault();
+
+        const orderId = event.target.dataset.id;
+
+        fetch(`/ordersearch/${orderId}`)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                // do something with the data
+            })
+            .catch(error => console.error(error));
+    }
+</script>

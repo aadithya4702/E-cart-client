@@ -1,0 +1,201 @@
+@import url("https://fonts.googleapis.com/css2?family=Lobster&family=Pacifico&family=Poppins&family=Roboto+Mono&family=Sono&display=swap");
+
+/*
+font-family: 'Lobster', cursive;
+font-family: 'Pacifico', cursive;
+font-family: 'Poppins', sans-serif;
+font-family: 'Roboto Mono', monospace;
+font-family: 'Sono', sans-serif; */
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+a {
+  text-decoration: none;
+}
+ul {
+  list-style: none;
+}
+body {
+  width: 100vw;
+  overflow-x: hidden;
+}
+body::-webkit-scrollbar {
+  display: none;
+}
+.nav {
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+  height: 70px;
+  width: 100%;
+  align-items: center;
+  background-color: #2b2d42;
+  position: sticky;
+  z-index: 1;
+}
+.left {
+  display: flex;
+}
+.logo {
+  display: flex;
+  margin-left: 10px;
+}
+img {
+  width: 50px;
+  height: 50px;
+}
+.title {
+  font-family: "Lobster", system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+    sans-serif;
+  font-size: 40px;
+  color: #edf2f4;
+}
+
+.search {
+  margin-left: 25px;
+  display: flex;
+  width: fit-content;
+
+  height: 50px;
+  background-color: #edf2f4;
+  border-radius: 10px;
+}
+
+#cat {
+  height: 100%;
+  width: auto;
+  background-color: #8d99ae;
+  color: white;
+  font-family: "Sono", sans-serif;
+  cursor: pointer;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  padding: 5px;
+}
+.sear {
+  width: 350px;
+  height: 100%;
+  padding: 5px;
+  font-family: "Roboto Mono", system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+    sans-serif;
+  letter-spacing: 1px;
+}
+#search-results {
+  position: absolute;
+  display: none;
+  background-color: #edf2f4;
+  top: 51px;
+  width: 90%;
+  font-family: "Poppins", sans-serif;
+  font-size: 18px;
+  text-align: start;
+  padding: 5px;
+  text-decoration: none;
+  max-height: 300px;
+  overflow-y: scroll;
+}
+.search-result-item > a {
+  color: black;
+  text-decoration: none;
+  flex-wrap: nowrap;
+}
+.search-result-item {
+  padding: 10px;
+  gap: 10px;
+  color: black;
+}
+.search-result-item > i {
+  margin-right: 10px;
+}
+.search-result-item:hover {
+  background-color: #8d99ae;
+  color: white;
+}
+.searicon {
+  height: 100%;
+  padding: 5px;
+  outline: none;
+  border: none;
+  background-color: #ef233c;
+  color: goldenrod;
+  width: 40px;
+  cursor: pointer;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+.searchbar {
+  display: flex;
+
+  position: relative;
+}
+.right {
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-right: 20px;
+}
+.ord {
+  width: fit-content;
+  font-family: "Sono", sans-serif;
+  color: #edf2f4;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #edf2f4;
+}
+.cart {
+  width: fit-content;
+  font-family: "Sono", sans-serif;
+  color: #edf2f4;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #edf2f4;
+}
+.carnum {
+  position: relative;
+}
+.fa-shopping-cart,
+.fa-scroll {
+  border-radius: 50%;
+  background-color: #6e798b;
+  padding: 10px;
+}
+.num {
+  position: absolute;
+  top: -10px;
+  font-size: 12px;
+  border-radius: 50%;
+  background-color: #ef233c;
+  padding: 5px;
+  width: fit-content;
+  color: #edf2f4;
+}
+.name {
+  width: 200px;
+  height: fit-content;
+}
+.name h3 {
+  font-family: "Roboto Mono", sans-serif;
+  font-size: 16px;
+  color: #edf2f4;
+}
+.reglog {
+  background-color: #ef233c;
+
+  padding: 10px;
+  width: fit-content;
+  font-family: "Sono", sans-serif;
+  color: #edf2f4;
+  border-radius: 20px;
+  border: 2px solid #8d99ae;
+}
+.reglog:hover {
+  box-shadow: 0 0 50px #ef233c;
+}

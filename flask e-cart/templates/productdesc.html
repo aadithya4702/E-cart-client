@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Add to Cart Page</title>
+  <link rel="stylesheet" href="/static/productdesc.css" />
+  <script src="/static/script.js"></script>
+  <link rel="shortcut icon" href="/static/logo.png" type="image/x-icon" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous" />
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+
+  {% include 'nav.html' %}
+
+
+  <section class="top">
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <center>
+      <ul class="messages">
+        {% for message in messages %}
+        <li style="font-family: ' Sono', Tahoma, Geneva, Verdana, sans-serif;font-size: 20px;color: green;">{{
+          message|safe }}</li>
+        {% endfor %}
+      </ul>
+    </center>
+
+    {% endif %}
+    {% endwith %}
+
+    {% for item in pdata %}
+    <div class="carddesc">
+
+      <div class="img">
+        <div class="slide-img active"> <img src="{{item['pimage']}}" id="imdesc" alt="" />
+        </div>
+        <div class="slide-img"><img src="https://m.media-amazon.com/images/I/61dUdAWRJjL._SX679_.jpg" id="imdesc"
+            alt="" /></div>
+        <div class="slide-img"><img src="https://m.media-amazon.com/images/I/61QUAHWoKyL._SX679_.jpg" id="imdesc"
+            alt="" /></div>
+        <div class="sliderbuttons">
+          <button class="leftb" onclick="previousReview()">
+            <i class="fas fa-chevron-left"></i>
+          </button>
+          <button class="rightb" onclick="nextReview()">
+            <i class="fas fa-chevron-right"></i>
+          </button>
+        </div>
+
+        {% if uname %}
+        <div class="favicon" data-id="{{ item['esin'] }}" {% if check %}style="color: crimson;" {% endif %}>
+          {% if check %}
+          <i class="fas fa-heart"></i>
+          {% else %}
+          <i class="far fa-heart"></i>
+          {% endif %}
+        </div>
+        {% endif %}
+
+
+
+
+
+
+
+
+      </div>
+
+      <div class="contdesc">
+        <div>
+
+          <i onclick="copyToClipboard('http://localhost:5000/productdesc/{{item['esin']}}')"
+            class="fas fa-share-alt" id="change"></i>
+
+        </div>
+
+
+        <h3><span style="font-family: Sono; color: grey;font-weight: bolder;text-transform: uppercase;">{{item['pbrand']}}</span> -
+          {{item['ptitle']}}</h3>
+        <p>{{item['pdescription']}}
+
+        </p>
+
+        <h3 id="price">Price :<span>&#8377;</span>{{item['price']}}</h3>
+        <h3 id="mrp">MRP : <span>&#8377;</span><del>{{item['originalprice']}}</del></h3>
+        <h2 style="display: flex;justify-content: space-around;">
+          <div>Get it by: <span style="color: green;">Tommorrow</span></div> <span>Stock : <span
+              style="color: rgb(86, 142, 86);">{{item['pstock']}}</span> {% if item['pstock']<= 10 %}<img
+              src="/static/limited.png" alt="" id="stock">{% else %}<img src="/static/warehouse.png" alt=""
+                id="stock">{% endif %}</span>
+        </h2>
+
+        <div class="descimg">
+          <div class="descimgcon">
+            <img
+              src="https://m.media-amazon.com/images/G/31/A2I-Convert/mobile/IconFarm/trust_icon_free_shipping_81px._CB630870460_.png"
+              alt="">
+            <h6>Free Delivery</h6>
+          </div>
+          <div class="descimgcon">
+            <img src="https://m.media-amazon.com/images/G/31/A2I-Convert/mobile/IconFarm/icon-returns._CB484059092_.png"
+              alt="">
+            <h6>Easy Returns</h6>
+          </div>
+        </div>
+
+
+
+        <form method="POST" action="{{ url_for('add_to_cart' ,category = item['pcategory'])}}">
+          <input type="hidden" name="itemid" id="" value="{{item['esin']}}">
+          <input type="hidden" name="itemtit" id="" value="{{item['ptitle']}}">
+          <input type="hidden" name="itempr" id="" value="{{item['price']}}">
+          <input type="hidden" name="itemimage" id="" value="{{item['pimage']}}">
+          <input type="hidden" name="itemdesc" id="" value="{{item['pdescription']}}">
+
+          <div class="space">
+            <div class="cartbut">
+              <input type="hidden" name="price" value="{{item['price']}}">
+              <div class="qty">
+                <h3>Quantity:</h3>
+                <input type="number" name="quant" id="quantity-input" value="1" min="1">
+              </div>
+
+              <button class="but" type="submit">
+
+                <h3 class="cart">Add to Cart</h3>
+
+
+
+              </button>
+        </form>
+
+
+        <div class="but-buy" >
+          <a href="/create-checkout-session/{{item.esin}}/1" id="checkout-link">
+            <h3 class="cart">Buy product</h3>
+          </a>
+        </div>
+
+      </div>
+
+    </div>
+
+    </div>
+    </div>
+    {% endfor %}
+
+
+
+
+
+
+  </section>
+  {% include 'foot.html' %}
+
+  <script>
+    let slidePosition = 0;
+    const sliders = document.querySelectorAll('.slide-img');
+    const totalSlider = sliders.length;
+    const btnPrev = document.querySelector('.leftb');
+    const btnNext = document.querySelector('.rightb');
+
+
+
+
+    btnPrev.addEventListener('click', function () {
+      PrevSlide();
+    });
+    btnNext.addEventListener('click', function () {
+      NextSlide();
+    });
+
+    function updatePosition() {
+      sliders.forEach(slide => {
+        slide.classList.remove('active');
+        slide.classList.add('hidden');
+      });
+
+      sliders[slidePosition].classList.add('active');
+
+    }
+
+    function PrevSlide() {
+      if (slidePosition == 0) {
+        slidePosition = totalSlider - 1;
+      } else {
+        slidePosition--;
+      }
+      updatePosition();
+    }
+    function NextSlide() {
+      if (slidePosition == totalSlider - 1) {
+        slidePosition = 0;
+      } else {
+        slidePosition++;
+      }
+      updatePosition();
+    }
+
+
+
+    setInterval(() => {
+      if (slidePosition == totalSlider - 1) {
+        slidePosition = 0;
+      } else {
+        slidePosition++;
+      }
+      updatePosition();
+    }, 10000);
+
+
+
+
+
+
+  </script>
+
+  <script>
+    // Get all the favicon elements
+    var favicons = document.querySelectorAll('.favicon');
+
+    // Attach event listener to each favicon
+    favicons.forEach(function (favicon) {
+      favicon.addEventListener('click', function () {
+        var itemId = this.getAttribute('data-id');
+        console.log(itemId);
+        var url = '/favorite';
+
+        // Send a POST request to the Flask endpoint
+        fetch(url, {
+          method: 'POST',
+          body: JSON.stringify({ id: itemId }),
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        })
+          .then(response => response.json())
+          .then(data => {
+            // Change the color of the favicon to red
+            favicon.querySelector('i').classList.remove('far');
+            favicon.querySelector('i').classList.add('fas');
+            favicon.querySelector('i').style.color = 'red';
+          })
+          .catch(error => console.error(error));
+      });
+    });
+  </script>
+
+
+
+  <script>
+    // Get the input and link elements
+    var input = document.getElementById('quantity-input');
+    var link = document.getElementById('checkout-link');
+
+    // Attach an event listener to the input element
+    input.addEventListener('change', function () {
+      // Get the current value of the input
+      var quantity = this.value;
+
+      // Update the href attribute of the link with the new quantity value
+      var href = link.getAttribute('href');
+      href = href.replace(/\/\d+$/, '/' + quantity);
+      link.setAttribute('href', href);
+    });
+  </script>
+
+
+
+
+  <script>
+    function copyToClipboard(text) {
+      const change = document.getElementById('change');
+      navigator.clipboard.writeText(text)
+        .then(() => {
+          alert("Link Copied to Clipboard! \u263A");
+
+
+        })
+        .catch(() => alert('Failed to copy link to clipboard.'));
+
+
+    }
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>

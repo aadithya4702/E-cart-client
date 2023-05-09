@@ -1,0 +1,63 @@
+@import url("https://fonts.googleapis.com/css2?family=Lobster&family=Pacifico&family=Poppins&family=Roboto+Mono&family=Sono&display=swap");
+
+/*
+font-family: 'Lobster', cursive;
+font-family: 'Pacifico', cursive;
+font-family: 'Poppins', sans-serif;
+font-family: 'Roboto Mono', monospace;
+font-family: 'Sono', sans-serif; */
+.carousel-container::-webkit-scrollbar {
+  display: none;
+}
+.carousel-wrapper {
+  overflow: hidden;
+  position: relative;
+  margin-top: 50px;
+}
+.carousel-container {
+  display: flex;
+  overflow-x: scroll;
+  scroll-behavior: smooth;
+}
+.carousel-slide {
+  display: flex;
+  flex-wrap: nowrap;
+}
+.carousel-slide img {
+  width: 200px;
+  height: 150px;
+  margin-right: 20px;
+}
+.carousel-prev,
+.carousel-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+}
+.carousel-prev {
+  left: 10px;
+}
+.carousel-next {
+  right: 10px;
+}
+
+.cardad {
+  margin: 10px;
+  padding: 10px;
+  width: 300px;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+    rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+    rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+  background-color: white;
+  border-radius: 10px;
+}
+.cardad > img {
+  width: 250px;
+  height: 250px;
+  margin-bottom: 5px;
+}

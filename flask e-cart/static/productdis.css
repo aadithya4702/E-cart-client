@@ -1,0 +1,85 @@
+@import url("https://fonts.googleapis.com/css2?family=Lobster&family=Pacifico&family=Poppins&family=Roboto+Mono&family=Sono&display=swap");
+
+/*
+font-family: 'Lobster', cursive;
+font-family: 'Pacifico', cursive;
+font-family: 'Poppins', sans-serif;
+font-family: 'Roboto Mono', monospace;
+font-family: 'Sono', sans-serif; */
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+a {
+  text-decoration: none;
+}
+ul {
+  list-style: none;
+}
+body {
+  width: 100vw;
+  height: fit-content;
+  background-color: aliceblue;
+}
+
+.displayproduct {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  height: fit-content;
+  margin: 20px;
+}
+#prodcat {
+  display: flex;
+  padding: 5px;
+  width: 100%;
+  font-family: "Roboto Mono", sans-serif;
+  font-size: 25px;
+}
+.whole {
+  display: flex;
+  height: fit-content;
+}
+.leftfilter {
+  max-width: 500px;
+  min-width: 300px;
+  float: left;
+  background-color: aliceblue;
+}
+#filters-form {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  font-family: "Roboto Mono", sans-serif;
+  font-size: 20px;
+}
+
+/* back to top */
+
+.back-to-top {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  font-size: 16px;
+  color: aliceblue;
+  background-color: grey;
+  padding: 10px;
+  border-radius: 50%;
+  text-align: center;
+  cursor: pointer;
+  z-index: 9999;
+}
+#tarow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.back-to-top:hover {
+  background-color: rgb(163, 169, 173);
+  color: black;
+}

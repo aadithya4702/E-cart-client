@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/productincart.css">
+    <script src="/static/script.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+
+    <div class="prodcard">
+        <img src="{{item['pimage']}}" alt="" />
+        <div class="proddetails">
+            <h3>{{item['ptitle']}}</h3>
+            <p id="content">
+                {{item['pdescription']}}
+
+            </p>
+            <h3 style="font-family: Sono;"><span>&#8377;</span>{{item['price']}}</h3>
+            <div class="prodbot">
+                <h3>Seller Ratings: {{item['prating']}}</h3>
+                <h4>Get It By : Tomorrow</h4>
+                <div>
+                    <button class="qtybtn" onclick="">
+                        <h3>Qty:</h3>
+                        <h3>{{item['quantity']}}</h3>
+                    </button>
+
+
+
+                </div>
+                <div class="del">
+                    <a href="{{ url_for('delete_product_from_cart', product_id=item['esin']) }}">
+                        <h3>Remove Product</h3>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+
+</html>

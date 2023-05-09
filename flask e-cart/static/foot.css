@@ -1,0 +1,128 @@
+@import url("https://fonts.googleapis.com/css2?family=Lobster&family=Pacifico&family=Poppins&family=Roboto+Mono&family=Sono&display=swap");
+
+.foot {
+  width: 100%;
+  height: auto;
+
+  background-color: #2b2d42;
+  padding: 20px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  font-family: "Roboto Mono", sans-serif;
+}
+
+.footerlogo {
+  margin: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  gap: 10px;
+}
+.foot .footerlogo img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #edf2f4;
+  margin-bottom: 10px;
+}
+.footerlogo h5 {
+  font-family: "Lobster", sans-serif;
+  font-size: 40px;
+  color: #edf2f4;
+}
+.centfoot {
+  display: flex;
+  justify-content: space-evenly;
+}
+.sitemap,
+.minmap,
+.about,
+.seller {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.foot h3 {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-size: 20px;
+  color: gray;
+  font-weight: bolder;
+  font-family: "Sono", sans-serif;
+}
+.sitemap > a,
+.minmap > a,
+.about > a,
+.seller > a {
+  color: aliceblue;
+}
+form {
+  display: flex;
+
+}
+
+.copy {
+  color: #ef233c;
+  font-family: "Sono", sans-serif;
+  font-size: 16px;
+}
+.cont-links {
+  margin: 20px 0 20px 0;
+  display: flex;
+
+  justify-content: center;
+}
+
+.cont-links a {
+  padding: 10px;
+  font-size: 16px;
+  background-color: #c0c4c6;
+  margin: 10px;
+  border-radius: 50%;
+  color: #2b2d42;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.cont-links a:hover {
+  background-color: white;
+}
+.cont-links a #git:hover {
+  color: black;
+}
+.cont-links a #mail:hover {
+  color: rebeccapurple;
+}
+.cont-links a #link:hover {
+  color: rgb(15, 121, 221);
+}
+.cont-links a #you:hover {
+  color: red;
+}
+#mailto {
+  width: 280px;
+}
+
+#mailicon {
+  padding: 10px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+  background-color: #ef233c;
+  color: #c0c4c6;
+  
+}
+#msg {
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+  width: 250px;
+
+  height: 40px;
+}

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Cart</title>
+    <!-- font awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+        integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="shortcut icon" href="/static/logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="/static/logreg.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+    </script>
+</head>
+
+<body>
+
+    <section class="b">
+        <center>{% if msg %}
+            <div class="msgalert">
+                <i class="fas fa-exclamation-circle"></i>
+
+                <h3 style="color: black;font-family: Roboto Mono;">{{msg}}</h3>
+
+
+            </div>{% endif %}
+            <div class="box">
+                <a href="/">
+                    <h5><i class="fas fa-times"></i></h5>
+                </a>
+                <div class="leftlogbox">
+                    <img src="/static/Sign in-pana.png" alt="">
+                </div>
+                <div class="rightlogbox">
+                    <div id="register" style="display:none;">
+                        <form action="{{ url_for('LogReg') }}" method="post">
+                            <center>
+                                <input type="hidden" name="action" value="register">
+                                <h3>Register</h3>
+                                <p>Welcome :)</p>
+
+                                <table class="tablespace">
+                                    <tr>
+                                        <th>NAME :</th>
+                                        <td><input type="text" name="Name" id="Name"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>E-MAIL :</th>
+                                        <td><input type="email" name="Email" id="Email"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>MOBILE NUMBER :</th>
+                                        <td><input type="number" name="Mobile" id="Mobile"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Address:</th>
+                                        <td><input type="text" name="Address" id="Address"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>PASSWORD :</th>
+                                        <td><input type="password" name="Pass" id="Pass"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>CONFIRM-PASSWORD :</th>
+                                        <td><input type="password" name="Conpass" id="Conpass"></td>
+                                    </tr>
+
+                                </table>
+                                <input type="submit" value="Register" name="register" id="lrbut">
+
+
+
+                                <p id="log">If You Have Already an account ,Then
+                                <h2 onclick="reg()">Login</h2>
+                                </p>
+                            </center>
+
+
+
+                        </form>
+                    </div>
+
+
+                    <div id="login" style="display: block;">
+                        <form method="post" action="{{ url_for('LogReg') }}">
+                            <input type="hidden" name="action" value="login">
+
+                            <h3>Login</h3>
+                            <p id="space">Welcome Again :)</p>
+
+                            <center>
+                                <table class="tablespace logtable">
+                                    <tr>
+                                        <th>USERNAME :</th>
+                                        <td><input type="text" name="uname" id="" ></td>
+                                    </tr>
+
+                                    <tr>
+                                        <th>PASSWORD :</th>
+                                        <td><input type="password" name="upass" id="" ></td>
+                                    </tr>
+
+
+                                </table>
+                                <!-- <table class="forgetpassword">
+                                    <tr>
+                                        <th>OTP :</th>
+                                        <td><input type="text" name="otp" id=""></td>
+                                    </tr>
+
+                                </table> -->
+                            </center>
+                            <input type="submit" value="Login" name="login" id="lrbut">
+
+                            <p id="forget">Have U Forget Password ?
+                                <a id="forgetpass" href="/generateotp">ClickHere</a>
+                            </p>
+
+
+
+                            <p id="log" style="margin-top:30px;">If You Not Have an account ,Then Please
+                            <h2 onclick="log()">Register</h2>
+                            </p>
+        </center>
+
+
+        </form>
+
+        </div>
+
+        </div>
+
+        </div>
+        </center>
+
+
+
+
+    </section>
+    <script>
+        function log() {
+            var x = document.getElementById("login");
+            var y = document.getElementById("register");
+
+            if (x.style.display == 'block') {
+                x.style.display = 'none';
+                y.style.display = 'block';
+            }
+            else {
+                x.style.display = 'none';
+            }
+
+        }
+
+        function reg() {
+            var x = document.getElementById("login");
+            var y = document.getElementById("register");
+
+
+            if (y.style.display == 'block') {
+                y.style.display = 'none';
+                x.style.display = 'block';
+            }
+            else {
+                y.style.display = 'none';
+            }
+
+        }
+
+
+
+        $(document).ready(function () {
+            // Show the element
+            $('.msgalert').show();
+
+            // Hide the element after 5 seconds
+            setTimeout(function () {
+                $('.msgalert').hide();
+            }, 3000);
+        });
+
+
+
+
+
+    </script>
+
+
+</body>
+
+</html>
