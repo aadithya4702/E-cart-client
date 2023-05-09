@@ -42,7 +42,9 @@
           <!-- <li style="display: flex;align-items: center;gap: 5px;"><input type="checkbox" name="brand" value="All"
               id=""><label for="radio">All</label></li> -->
           {% for item in brand %}
-          <li style="display: flex;align-items: center;gap: 5px;"><i class="fas fa-cubes"></i>{{item[0]}}</li>
+          <li style="display: flex;align-items: center;gap: 5px;"><i class="fas fa-cubes"></i>{{item[0]}}
+
+          </li>
           {% endfor %}
 
         </ul>
@@ -54,12 +56,21 @@
 
           <span class="priceValue">₹{{min}}</span>
         </div>
+
+        <h3 style="text-align: center;color: grey;">Star Rating</h3>
+        <div class="star">
+
+          <input type="range" id="starrange" min="1" max="5" value="" />
+
+          <i class="fas fa-star" style="color: goldenrod;margin-right:5px ;"></i><span class="starValue">1</span>
+        </div>
         <button type="button" id="apply-filters">Apply Filters</button><input type="hidden" name="cat" id="category"
           value="{{category}}" />
 
         <input type="hidden" id="hidden_minimum_price" name="minval" value="{{min}}" />
         <input type="hidden" id="hidden_maximum_price" value="{{max}}" />
         <input type="hidden" id="hidden_maximum_prices" name="rangeval" value=" " />
+        <input type="hidden" id="hidden_star" name="starrangeval" value=" " />
       </form>
 
       <a href="{{ url_for('products', category= category) }}"
@@ -163,7 +174,7 @@
 
 
 
-<!-- scriptt for filter -->
+  <!-- scriptt for filter -->
   <script>
     $(document).ready(function () {
       $('#apply-filters').click(function () {
@@ -188,7 +199,7 @@
 
 
 
-<!-- script for setting value -->
+  <!-- script for setting value -->
   <script>
 
 
@@ -203,7 +214,18 @@
       rangeV.value = e.target.value;
 
     });
+    const starR = document.querySelector("#starrange");
+    const starV = document.querySelector(".starValue");
+    const srangeV = document.querySelector("#hidden_star");
 
+
+
+    starR.addEventListener("input", (e) => {
+      starV.textContent = e.target.value;
+      starV.value = e.target.value;
+      srangeV.value = e.target.value;
+
+    });
 
   </script>
 

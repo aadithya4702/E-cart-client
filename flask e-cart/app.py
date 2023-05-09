@@ -440,6 +440,7 @@ def products():
     return render_template('productdis.html', tdata=products, category=category,min =minp,max = maxp,subcat = subcategory,brand = brand)
 
 
+
 def adddollaar(val):
     if val.strip():  # Check if val is not empty or whitespace
       value = int(val)
@@ -457,17 +458,23 @@ def fetchrecords():
     category = request.form['cat']
     minval = request.form['minval']
     rangeval = request.form['rangeval']
+    srangeval = request.form['starrangeval']
+    minstarval = 1
 
     minv = adddollaar(minval)
     rangevalv = adddollaar(rangeval) 
-    print(minval)
-    print(rangeval)
+    print(srangeval)
+    print(minstarval)
 
     products = []
 
-    if query == 'All' and rangevalv:
+    if query == 'All' and rangevalv > minv:
         cur.execute("SELECT * FROM products WHERE pcategory = %s and compprice >= %s and compprice <= %s" , (category,minv,rangevalv))
         print("i am excecuted")
+
+    elif query == 'All' and srangeval:
+        cur.execute("SELECT * FROM products WHERE pcategory = %s and prating >= %s and prating <= %s" , (category,minstarval,srangeval))
+        print("i am excecuted")    
     
     elif query:
         cur.execute("SELECT * FROM products WHERE psubcategory = %s" , (query,))
@@ -498,11 +505,12 @@ def fetchrecords():
 
 
 
-
 def updated_price(price):
        
         price_without_currency = price.replace('$', '')
-        pri = float(price_without_currency)
+        prsc = price_without_currency.replace(',','')
+        pri1 = float(prsc)
+        pri = float(pri1)
         p = int(pri)
         updated_price = p * 83   
         return updated_price
@@ -511,7 +519,8 @@ def updated_price(price):
 def updated_price(price1):
        
         price_without_currency1 = price1.replace('$', '')
-        pri1 = float(price_without_currency1)
+        prsc = price_without_currency1.replace(',','')
+        pri1 = float(prsc)
         p1 = int(pri1)
         updated_price1 = p1 * 83   
         return updated_price1
