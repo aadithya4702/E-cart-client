@@ -1225,35 +1225,73 @@ def subcat():
     return jsonify(products), 200, {'Content-Type': 'application/json'}
 
 
-@app.route('/productbulk', methods=['GET'])
+@app.route('/productbulk', methods=['POST'])
 def get_products():
-    # Get the subcategory ID from the query parameters
-    subcat_id = request.args.get('subcat_id')
+    # Get the subcategory ID from the POST data
+    subcat_id = request.form['subcat']
 
     # Look up the products for the given subcategory ID
     cursor = mysql.connection.cursor()
     cursor.execute("select distinct ptitle,esin from products where psubcategory = %s",(subcat_id,))   
     products = cursor.fetchall()
-    print(products)
+
+    product_options = ''
+    for product in products:
+        product_options += '<option value="' + product[1] + '">' + product[0] + '</option>'
+    
 
     # Return the products as JSON
-    return jsonify(products), 200, {'Content-Type': 'application/json'}
+    return jsonify({'product_options': product_options})
 
-@app.route('/price', methods=['GET'])
+
+@app.route('/price', methods=['POST'])
 def get_price():
-    # Get the product ID from the query parameters
-    prod_id = request.args.get('prod_id')
+    # Get the product ID from the form data
+    prod_id = request.form['esin']
 
     # Look up the price for the given product ID
     cursor = mysql.connection.cursor()
-    cursor.execute("select pprice from products where esin = %s",(prod_id,))   
+    cursor.execute("SELECT pprice FROM products WHERE esin = %s", (prod_id,))   
     p = cursor.fetchall()
 
+    # If the price is not found, return an error
+    if len(p) == 0:
+        return jsonify({'error': 'Price not found.'}), 404
+
+    # Otherwise, return the price as JSON
     price = updated_price(p[0][0])
+    return jsonify({'price': price})
 
 
-    # Return the price as JSON
-    return jsonify(price=price), 200, {'Content-Type': 'application/json'}
+@app.route('/add-to-table', methods=['POST'])
+def add_to_table():
+    data = request.get_json()
+    username = session.get('username')
+
+    print(data)
+    cursor = mysql.connection.cursor()
+    for row in data:
+        # Get product details from the database based on the product name
+        cursor.execute("SELECT pimage, porgprice,esin,pdescription FROM products WHERE esin = %s", (row['prod'],))
+        product_data = cursor.fetchone()
+        print(product_data)
+        pimage = product_data[0]
+        porg = product_data[1]
+        porgprice = updated_price(porg)
+        pid = product_data[2]
+        pdesc = product_data[3]
+
+
+
+        # Insert data into the mytable
+        # cursor.execute("INSERT INTO cart (subcat, prod, qty, price, pimage, porgprice) VALUES (%s, %s, %s, %s, %s, %s)", (row['subcat'], row['prod'], row['qty'], row['price'], pimage, porgprice))
+        cursor.execute("INSERT INTO cart (id,price,items,user,title,originalprice,image,description) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", (pid, row['price'], row['qty'],username,row['prod'], porgprice, pimage,pdesc ))
+    mysql.connection.commit()
+    cursor.close()
+
+    return jsonify({'success': True})
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)

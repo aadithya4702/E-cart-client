@@ -16,7 +16,7 @@
 
 <body>
     {% include 'nav.html' %}
-    <h1>Multi-Row Form</h1>
+    <h1>Bulk Purchase</h1>
     <div id="form-rows">
         <div class="form-row">
             <label for="subcat-1">Subcategory:</label>
@@ -46,138 +46,94 @@
 
     <script>
         // Get all the form rows
-        const formRows = document.querySelectorAll('.form-row');
-
-        // Add a delegated event handler to the parent element that listens for changes on all the product select elements
-        formRows.forEach(row => {
-            row.addEventListener('change', (event) => {
-                // Get the element that triggered the event
-                const target = event.target;
-
-                // If the triggered element is a product select element
-                if (target.tagName.toLowerCase() === 'select' && target.name.startsWith('prod-')) {
-                    // Get the quantity input element for the same row as the triggered product select element
-                    const qtyInput = row.querySelector(`input[name="qty-${target.name.split('-')[1]}"]`);
-
-                    // Get the price input element for the same row as the triggered product select element
-                    const priceInput = row.querySelector(`input[name="price-${target.name.split('-')[1]}"]`);
-
-                    // Get the selected product ID
-                    const prodId = target.value;
-
-                    // Make an AJAX request to get the price for the selected product
-                    // Replace the URL with the URL of your Flask endpoint that returns the price for the given product ID
-                    fetch(`/price?prod_id=${prodId}`)
-                        .then(response => response.json())
-                        .then(data => {
-                            // Set the price input value
-                            priceInput.value = data.price;
-                        })
-                        .catch(error => console.error(error));
-                }
-            });
-
-            // Add an event listener to the subcategory select element in each row
-            const subcatSelect = row.querySelector('select[name^="subcat"]');
-            const prodSelect = row.querySelector('select[name^="prod"]');
-            const priceInput = row.querySelector('input[name^="price"]');
-
-            subcatSelect.addEventListener('change', () => {
-                // Get the selected subcategory ID
-                const subcatId = subcatSelect.value;
-
-                // Make an AJAX request to get the products for the selected subcategory
-                // Replace the URL with the URL of your Flask endpoint that returns the products for the given subcategory ID
-                fetch(`/productbulk?subcat_id=${subcatId}`)
-                    .then(response => response.json())
-                    .then(products => {
-                        // Clear the previous options
-                        prodSelect.innerHTML = '<option value="">Please select a product</option>';
-
-                        // Add the new options
-                        for (const [title, id] of products) {
-                            const option = document.createElement('option');
-                            option.value = id;
-                            option.text = title;
-                            prodSelect.appendChild(option);
-                        }
-                    })
-                    .catch(error => console.error(error));
-            });
-        });
-    </script>
-
-    <script>
         $(document).ready(function () {
             var row = 1;
 
-            $("#add-row").click(function () {
+            // Add new row
+            $('#add-row').click(function () {
                 row++;
-                var html = '<div class="form-row">';
-                html += '<label for="subcat-' + row + '">Subcategory:</label>';
-                html += '<select id="subcat-' + row + '" name="subcat-' + row + '">';
-                html += '<option value="{{item}}">{{item}}</option>';
-
-                html += '</select>';
-                html += '<label for="prod-' + row + '">Product:</label>';
-                html += '<select id="prod-' + row + '" name="prod-' + row + '">';
-                html += '<option value="">All</option>';
-                html += '<option value="">All</option>';
-                html += '<option value="">All</option>';
-                html += '</select>';
-                html += '<label for="qty-' + row + '">Quantity:</label>';
-                html += '<input type="number" id="qty-' + row + '" name="qty-' + row + '">';
-                html += '<label for="price-' + row + '">Price:</label>';
-                html += '<input type="text" readonly id="price-' + row + '" name="price-' + row + ' ">';
-                html += '</div>';
-                $("#form-rows").append(html);
-
-
-
-                const subcatSelect = document.getElementById('subcat-' + row);
-                fetch('/subcategory')
-                    .then(response => response.json())
-                    .then(subcats => {
-                        // Clear the previous options
-                        subcatSelect.innerHTML = '<option value="">Please select a subcategory</option>';
-
-                        // Add the new options
-                        for (const [name, id] of subcats) {
-                            const option = document.createElement('option');
-                            option.value = id;
-                            option.text = name;
-                            subcatSelect.appendChild(option);
-                        }
-                    })
-                    .catch(error => console.error(error));
+                var html = '<div class="form-row">' +
+                    '<label for="subcat-' + row + '">Subcategory:</label>' +
+                    '<select id="subcat-' + row + '" name="subcat-' + row + '">' +
+                    '{% for item in subcat %}' +
+                    '<option value="{{item[0]}}">{{item[0]}}</option>' +
+                    '{% endfor %}' +
+                    '</select>' +
+                    '<label for="prod-' + row + '">Product:</label>' +
+                    '<select id="prod-' + row + '" name="prod-' + row + '">' +
+                    '<option value="">All</option>' +
+                    '<option value="">All</option>' +
+                    '<option value="">All</option>' +
+                    '</select>' +
+                    '<label for="qty-' + row + '">Quantity:</label>' +
+                    '<input type="number" id="qty-' + row + '" name="qty-' + row + '">' +
+                    '<label for="price-' + row + '">Price:</label>' +
+                    '<input type="text" id="price-' + row + '" name="price-' + row + '" readonly>' +
+                    '</div>';
+                $('#form-rows').append(html);
             });
 
-        });
+            // Get product options and prices on subcategory change
+            $(document).on('change', 'select[name^="subcat-"]', function () {
+                var rowId = $(this).attr('id').split('-')[1];
+                var subcat = $(this).val();
+                $.ajax({
+                    url: '/productbulk',
+                    type: 'POST',
+                    data: { subcat: subcat },
+                    success: function (data) {
+                        $('#prod-' + rowId).html(data.product_options);
 
-
-        $("#submit-form").click(function () {
-            var data = {};
-            for (var i = 1; i <= row; i++) {
-                var subcat = $("#subcat-" + i).val();
-                var prod = $("#prod-" + i).val();
-                var qty = $("#qty-" + i).val();
-                if (subcat && prod && qty) {
-                    data["subcat-" + i] = subcat;
-                    data["prod-" + i] = prod;
-                    data["qty-" + i] = qty;
-                }
-            }
-            $.ajax({
-                url: "/submit-form",
-                method: "POST",
-                data: data,
-                success: function (response) {
-                    console.log(response);
-                },
-                error: function (error) {
-                    console.log(error);
-                }
+                    },
+                    error: function () {
+                        alert('Error fetching product options and prices.');
+                    }
+                });
             });
+
+            $(document).on('change', 'select[name^="prod-"]', function () {
+                var rowId = $(this).attr('id').split('-')[1];
+                var esin = $(this).val();
+                $.ajax({
+                    url: '/price',
+                    type: 'POST',
+                    data: { esin: esin },
+                    success: function (data) {
+                        $('#price-' + rowId).val(data.price);
+                    },
+                    error: function () {
+                        alert('Error fetching product price.');
+                    }
+                });
+            });
+
+
+            $(document).on('click', '#submit-form', function () {
+                var formData = [];
+                $('div.form-row').each(function () {
+                    var subcat = $(this).find('select[name^="subcat-"]').val();
+                    var prod = $(this).find('select[name^="prod-"]').val();
+                    var qty = $(this).find('input[name^="qty-"]').val();
+                    var price = $(this).find('input[name^="price-"]').val();
+                    formData.push({ subcat: subcat, prod: prod, qty: qty, price: price });
+                });
+
+                $.ajax({
+                    url: '/add-to-table',
+                    type: 'POST',
+                    data: JSON.stringify(formData),
+                    contentType: 'application/json',
+                    success: function (data) {
+                        alert('Data saved successfully.');
+                    },
+                    error: function () {
+                        alert('Error saving data.');
+                    }
+                });
+            });
+
+
+
         });
 
 

@@ -23,13 +23,15 @@ body {
   flex-direction: column;
 }
 h1 {
-  font-family: "Poppins", sans-serif;
+  font-family: "Sono", sans-serif;
   font-size: 30px;
   font-weight: bold;
 }
 #form-rows {
-  max-width: 1000px;
-  overflow: scroll;
+  max-width: 1500px;
+  min-height: 400px;
+  padding: 10px;
+  overflow-x: scroll;
   height: fit-content;
   background: aliceblue;
   border-radius: 16px;
