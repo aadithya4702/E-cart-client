@@ -1202,9 +1202,58 @@ def get_order_data(order_id):
     # return the data as a JSON response
     return jsonify(order_data)
 
+@app.route('/bulkorder')
+def bulkorder():
+    cursor = mysql.connection.cursor()
+    cursor.execute("select distinct psubcategory from products")
+    subcat = cursor.fetchall()
+    return render_template('bulkorder.html',subcat = subcat)
 
 
+@app.route('/subcategory', methods=['GET'])
+def subcat():
+    # Get the subcategory ID from the query parameters
 
+
+    # Look up the products for the given subcategory ID
+    cursor = mysql.connection.cursor()
+    cursor.execute("select distinct psubcategory from products ")   
+    products = cursor.fetchall()
+    print(products)
+
+    # Return the products as JSON
+    return jsonify(products), 200, {'Content-Type': 'application/json'}
+
+
+@app.route('/productbulk', methods=['GET'])
+def get_products():
+    # Get the subcategory ID from the query parameters
+    subcat_id = request.args.get('subcat_id')
+
+    # Look up the products for the given subcategory ID
+    cursor = mysql.connection.cursor()
+    cursor.execute("select distinct ptitle,esin from products where psubcategory = %s",(subcat_id,))   
+    products = cursor.fetchall()
+    print(products)
+
+    # Return the products as JSON
+    return jsonify(products), 200, {'Content-Type': 'application/json'}
+
+@app.route('/price', methods=['GET'])
+def get_price():
+    # Get the product ID from the query parameters
+    prod_id = request.args.get('prod_id')
+
+    # Look up the price for the given product ID
+    cursor = mysql.connection.cursor()
+    cursor.execute("select pprice from products where esin = %s",(prod_id,))   
+    p = cursor.fetchall()
+
+    price = updated_price(p[0][0])
+
+
+    # Return the price as JSON
+    return jsonify(price=price), 200, {'Content-Type': 'application/json'}
 
 if __name__ == '__main__':
     app.run(debug=True)

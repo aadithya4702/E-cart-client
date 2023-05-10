@@ -55,6 +55,34 @@ body::-webkit-scrollbar {
   background-color: transparent;
   color: goldenrod;
 }
+.bulkpur {
+  display: flex;
+  flex-direction: column;
+  background:aliceblue;
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: black;
+  font-family: "Sono",sans-serif;
+  letter-spacing: 1px;
+  align-items: center;
+  justify-content: center;
+}
+.bulkpur p{
+  font-size: 20px;
+}
+.bulkpur a{
+  display: flex;
+  gap: 10px;
+  color: goldenrod;
+}
+.bulkpur a img{
+  width: 30px;
+  height: 30px;
+
+}
 .rightb {
   position: absolute;
   top: 250px;
@@ -191,7 +219,7 @@ body::-webkit-scrollbar {
   border-radius: 8px;
   overflow: hidden;
 }
-.cardlayout  > img {
+.cardlayout > img {
   min-width: 250px;
   min-height: 200px;
   margin-bottom: 5px;
