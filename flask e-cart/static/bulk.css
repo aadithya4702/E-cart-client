@@ -45,8 +45,14 @@ h1 {
   justify-content: flex-start;
   align-items: center;
   margin-bottom: 10px;
+  font-family: "Sono", sans-serif;
 }
-
+select {
+  width: 200px;
+}
+input {
+  width: 200px;
+}
 .form-row label {
   margin-right: 10px;
 }

@@ -1236,7 +1236,9 @@ def get_products():
     products = cursor.fetchall()
 
     product_options = ''
+    product_options += '<option value="' "Select Product" '">' "Select Product" '</option>'
     for product in products:
+        
         product_options += '<option value="' + product[1] + '">' + product[0] + '</option>'
     
 
