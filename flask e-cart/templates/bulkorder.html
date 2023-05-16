@@ -32,9 +32,12 @@
                 <option value="">All</option>
             </select>
             <label for="qty-1">Quantity:</label>
-            <input type="number" id="qty-1" name="qty-1">
+            <input type="number" id="qty-1" name="qty-1" min="0">
             <label for="price-1">Price of 1:</label>
             <input type="text" id="price-1" name="price-1" readonly>
+            <label for="total-1">Total Price:</label>
+            <input type="text" id="total-1" name="total-1" readonly>
+
         </div>
     </div>
     <div>
@@ -66,9 +69,11 @@
                     '<option value="">All</option>' +
                     '</select>' +
                     '<label for="qty-' + row + '">Quantity:</label>' +
-                    '<input type="number" id="qty-' + row + '" name="qty-' + row + '">' +
+                    '<input type="number" id="qty-' + row + '" name="qty-' + row + '" min="0">' +
                     '<label for="price-' + row + '">Price of 1:</label>' +
                     '<input type="text" id="price-' + row + '" name="price-' + row + '" readonly>' +
+                    '<label for="total-' + row + '">Total Price:</label>' +
+                    '<input type="text" id="total-' + row + '" name="total-' + row + '" readonly>' +
                     '</div>';
                 $('#form-rows').append(html);
             });
@@ -106,6 +111,16 @@
                     }
                 });
             });
+
+
+            $(document).on('change', 'input[name^="qty-"]', function () {
+                var rowId = $(this).attr('id').split('-')[1];
+                var qty = $(this).val();
+                var price = $('#price-' + rowId).val();
+                var total = qty * price;
+                $('#total-' + rowId).val(total);
+            });
+
 
 
             $(document).on('click', '#submit-form', function () {

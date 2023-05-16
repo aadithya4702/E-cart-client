@@ -28,10 +28,11 @@ h1 {
   font-weight: bold;
 }
 #form-rows {
-  max-width: 1500px;
+  max-width: 1600px;
   min-height: 400px;
+  max-height: 600px;
   padding: 10px;
-  overflow-x: scroll;
+  overflow: scroll;
   height: fit-content;
   background: aliceblue;
   border-radius: 16px;
