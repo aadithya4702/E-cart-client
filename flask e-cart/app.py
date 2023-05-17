@@ -887,7 +887,7 @@ def thanks():
     order_date = date.today()
     
     # print(total_cart_value)
-    # send_email(username,total_cart_value,order_date,order_id)
+    send_email(username,total_cart_value,order_date,order_id)
 
     # Get the current date
     
@@ -911,6 +911,8 @@ def thanks():
     q = "Update products SET quantitysold = %s Where esin = %s"
     d = (cart_item[2],cart_item[0])
     execute_query(q,d)
+     
+
 
     # Clear the cart for the current user
     clear_cart_query = "DELETE FROM cart WHERE user = %s"

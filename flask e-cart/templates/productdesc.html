@@ -79,13 +79,15 @@
       <div class="contdesc">
         <div>
 
-          <i onclick="copyToClipboard('http://localhost:5000/productdesc/{{item['esin']}}')"
-            class="fas fa-share-alt" id="change"></i>
+          <i onclick="copyToClipboard('http://localhost:5000/productdesc/{{item['esin']}}')" class="fas fa-share-alt"
+            id="change"></i>
 
         </div>
 
 
-        <h3><span style="font-family: Sono; color: grey;font-weight: bolder;text-transform: uppercase;">{{item['pbrand']}}</span> -
+        <h3><span
+            style="font-family: Sono; color: grey;font-weight: bolder;text-transform: uppercase;">{{item['pbrand']}}</span>
+          -
           {{item['ptitle']}}</h3>
         <p>{{item['pdescription']}}
 
@@ -94,11 +96,16 @@
         <h3 id="price">Price :<span>&#8377;</span>{{item['price']}}</h3>
         <h3 id="mrp">MRP : <span>&#8377;</span><del>{{item['originalprice']}}</del></h3>
         <h2 style="display: flex;justify-content: space-around;">
-          <div>Get it by: <span style="color: green;">Tommorrow</span></div> <span>Stock : <span
-              style="color: rgb(86, 142, 86);">{{item['pstock']}}</span> {% if item['pstock']<= 10 %}<img
-              src="/static/limited.png" alt="" id="stock">{% else %}<img src="/static/warehouse.png" alt=""
-                id="stock">{% endif %}</span>
+          <div>Get it by: <span style="color: green;">Tommorrow</span></div>
+          <span>Stock : <span style="color: rgb(86, 142, 86);" id="stval">{{item['pstock']}}</span> {% if item['pstock']
+            <= 10 %}<img src="/static/limited.png" alt="" id="stock">{% else %}<img src="/static/warehouse.png" alt=""
+                id="stock">{% endif %}
+          </span>
         </h2>
+        {% if item['pstock'] == 0%}
+        <p>Sorry for Inconvenience the product is out of stock . Please come after some time to check the availability..
+        </p>
+        {% endif %}
 
         <div class="descimg">
           <div class="descimgcon">
@@ -128,7 +135,7 @@
               <input type="hidden" name="price" value="{{item['price']}}">
               <div class="qty">
                 <h3>Quantity:</h3>
-                <input type="number" name="quant" id="quantity-input" value="1" min="1">
+                <input type="number" name="quant" id="quantity-input" value="0" min="1">
               </div>
 
               <button class="but" type="submit">
@@ -141,7 +148,7 @@
         </form>
 
 
-        <div class="but-buy" >
+        <div class="but-buy">
           <a href="/create-checkout-session/{{item.esin}}/1" id="checkout-link">
             <h3 class="cart">Buy product</h3>
           </a>
@@ -299,6 +306,32 @@
 
 
 
+
+  <script>
+    const stockValue = parseInt(document.getElementById("stval").innerHTML);
+
+    const quantityInput = document.getElementById('quantity-input');
+    const addToCartButton = document.querySelector('.cartbut button');
+    const buyProductButton = document.getElementById('checkout-link');
+
+    quantityInput.addEventListener('input', function () {
+      const quantityValue = parseInt(quantityInput.value);
+
+      if (quantityValue > stockValue) {
+        addToCartButton.disabled = true;
+        addToCartButton.style.opacity = '0.5';
+
+        buyProductButton.style.pointerEvents = 'none';
+        buyProductButton.style.opacity = '0.5';
+      } else {
+        addToCartButton.disabled = false;
+        addToCartButton.style.opacity = '1';
+
+        buyProductButton.style.pointerEvents = 'auto';
+        buyProductButton.style.opacity = '1';
+      }
+    });
+  </script>
 
 
 
