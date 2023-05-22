@@ -1,4 +1,4 @@
-<div class="whole">
+<div class="whole" id="order-row-{{ item[0] }}">
     <div class="color"></div>
     <div class="lis">
         <div class="orderno" id="disele">
@@ -63,21 +63,22 @@
     </div>
 </div>
 
-<!--{% if orders %}
- <script>
-    const orders = {{ orders | tojson }};
-    orders.forEach(order => {
-        const row = document.querySelector(".color");
+<!-- {% if orders %}
+<script>
+    const orderData = {{ orders | tojson }};
+    orderData.forEach(order => {
+        const row = document.getElementById(`order-row-${order[0]}`);
+        const col = row.querySelector(".color");
         console.log(order[5]);
         if (order[5] !== "pending") {
-            row.style.backgroundColor = "green";
+            col.style.backgroundColor = "green";
         } else {
-            row.style.backgroundColor = "crimson";
-            alert("green");
+            col.style.backgroundColor = "crimson";
         }
     });
 </script>
 {% endif %} -->
+
 
 
 <script>
