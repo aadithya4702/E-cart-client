@@ -27,25 +27,25 @@ app.secret_key = secrets.token_hex(16)
 
 app.config['HIDE_ELEMENTS'] = False
 
-app.config['MYSQL_HOST'] = 'localhost'
-app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'Aadi@9011'
-app.config['MYSQL_DB'] = 'ecart'
+app.config['MYSQL_HOST'] = ''
+app.config['MYSQL_USER'] = ''
+app.config['MYSQL_PASSWORD'] = ''
+app.config['MYSQL_DB'] = ''
 
 mysql = MySQL(app)
 
 
 app.config['MAIL_SERVER']='smtp.gmail.com'
 app.config['MAIL_PORT'] = 465
-app.config['MAIL_USERNAME'] = 'team.personelexpensetracker@gmail.com'
-app.config['MAIL_PASSWORD'] = 'uabvnvzwyngutqit'
+app.config['MAIL_USERNAME'] = ''
+app.config['MAIL_PASSWORD'] = ''
 app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
 mail = Mail(app)
 
 
 
-stripe.api_key = 'sk_test_51MecXQSDtBJBmoILDf81I4a1WOUDvL4uZARTjE5HDBoejn0mhWr00VBSgDpVfwqAVqXRUQHzTDWlWWPtI6oiAADo00nYf3isY7'
+stripe.api_key = ''
 
 
 @app.route('/some-protected-page')
